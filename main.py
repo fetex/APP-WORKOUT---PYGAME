@@ -8,21 +8,63 @@ import sys
 # Inicializamos pygame
 pygame.init()
 
-# Definir constantes de la ventana
-ANCHO = 800
-ALTO = 600
-BLANCO = (255, 255, 255)
-NEGRO = (0, 0, 0)
+# Colors app in rgb
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
+GREEN_BLACK = (0, 200, 0)
 
-
+#Size window 
+WIDTH = 800
+HEIGHT = 600
 
 # Crear ventana
-ventana = pygame.display.set_mode((ANCHO, ALTO))
+window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Entrenador Personal BodyBuilder')
 
 # Crear fuentes
 fuente_titulo = pygame.font.SysFont('Arial', 36)
 fuente_texto = pygame.font.SysFont('Arial', 24)
+
+# Funcion para crear boton
+def draw_button(x, y, width, height, color, text, text_color):
+    pygame.draw.rect(window, color, (x, y, width, height))
+    text_button = fuente_texto.render(text, True, text_color)
+    window.blit(text_button, (x + (width - text_button.get_width()) // 2, y + (height - text_button.get_height()) // 2)) ## Centro el texto en el boton
+
+# Bucle principal de la aplicación
+
+running = True
+while running:
+    window.fill(WHITE)
+
+    #Obtener posicion mouse
+    mouse_pos = pygame.mouse.get_pos()
+
+    #Efecto hover boton
+    if 100 <= mouse_pos[0] <= 250 and 100 <= mouse_pos[1] <= 250:
+        color_buttom = GREEN_BLACK
+    else:
+        color_buttom = GREEN
+
+    #Dibujar botones
+    draw_button(100, 200, 150, 50, color_buttom, 'Pecho', BLACK)
+
+    #Obtener eventos
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        # Detectar click en boton
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 100 <= mouse_pos[0] <= 250 and 200 <= mouse_pos[1] <= 250:
+                print('Click en boton pecho')
+
+    
+    #Actualizar pantalla
+    pygame.display.update()
+
+
 
 # # Función para mostrar texto en pantalla
 # def mostrar_texto(texto, fuente, color, x, y):
