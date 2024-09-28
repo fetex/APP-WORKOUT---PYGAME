@@ -72,7 +72,10 @@ def draw_button(x, y, width, height, color, color_hover, text, text_color):
     text_button = fuente_texto.render(text, True, text_color) # Insertar texto en el boton
     window.blit(text_button, (x + (width - text_button.get_width()) // 2, y + (height - text_button.get_height()) // 2)) ## Centro el texto en el boton
 
-
+# Función para mostrar texto en pantalla
+def mostrar_texto(texto, fuente, color, x, y):
+    superficie_texto = fuente.render(texto, True, color)
+    window.blit(superficie_texto, (x, y))
 
 def draw_grid():
     # lINEAS HORIZONTALES
@@ -84,7 +87,7 @@ def draw_grid():
         pygame.draw.line(window, GRAY, (x, 0), (x, HEIGHT))
 # Funcion para mostrar menu
 
-def show_menu():
+def show_menu():  # Vista menu
     window.fill(WHITE)
     draw_grid() # Llamar a la funcion para dibujar la cuadricula
     draw_button(100, 50, 150, 50, BLUE, PURPLE, "Bipces", BLACK)
@@ -96,10 +99,20 @@ def show_menu():
 
 # Vista pecho
 def show_chest():
-    window.fill(WHITE)
+    window.fill(WHITE) # Color de la ventana o vista 
     draw_grid()
     draw_button(100, 200, 150, 50, GREEN, GREEN_BLACK, 'Press de banca', BLACK)
     draw_button(250, 300, 150, 50, BLACK, GRAY,  'Regresar', WHITE)
+    mostrar_texto('Ejercios de Pecho', fuente_titulo, BLACK, 400, 0)
+    pygame.display.update()
+
+def show_biceps():
+    window.fill(BLUE)
+    draw_grid()
+    draw_button (200, 100, 200, 100, BLACK, GRAY, 'Curl de biceps', WHITE)
+    draw_button (600, 100, 200, 100, GRAY, WHITE, 'Polea', BLACK)
+    draw_button (400, 300, 100, 50, RED, GRAY, "REGRESAR", WHITE)
+    mostrar_texto('Ejercios de biceps', fuente_titulo, BLACK, 400, 0)
     pygame.display.update()
 
 # Mostrar ejercicio
@@ -123,7 +136,7 @@ def show_chest():
 
 
 view = 'menu'
-running = True
+running = True #flag para mantener la aplicacion en ejecucion
 exercise = None
 
 
@@ -135,8 +148,10 @@ while running:
         show_menu()
     elif view == 'chest':
         show_chest()
-    elif view == 'exercise':
-        show_exercise('Press de banca', frames_gif)
+    elif view == 'biceps':
+        show_biceps()
+    # elif view == 'exercise':
+    #     show_exercise('Press de banca', frames_gif)
 
     #Obtener posicion mouse
     mouse_pos = pygame.mouse.get_pos()
@@ -161,6 +176,8 @@ while running:
           if view == 'menu':
               if 100 <= mouse_pos[0] <= 250 and 200 <= mouse_pos[1] <= 250:
                   view = 'chest'
+              elif 100 <= mouse_pos[0] <= 250 and 50 <= mouse_pos[1] <= 100:
+                  view = 'biceps'
               elif 250 <= mouse_pos[0] <= 400 and 300 <= mouse_pos[1] <= 350:
                   running = False
 
@@ -171,17 +188,16 @@ while running:
                   view = 'exercise'
                   exercise = 'Press de banca'
          
-          elif view == 'exercise':
-             if 400 <= mouse_pos[0] <= 550 and 500 <= mouse_pos[1] <= 550:
-                 view = 'chest'
+          elif view == 'biceps':
+            
+              if 400 <= mouse_pos[0] <= 500 and 300 <= mouse_pos[1] <= 350:
+                  view = 'menu'
+             
             
         
 
 
-# # Función para mostrar texto en pantalla
-# def mostrar_texto(texto, fuente, color, x, y):
-#     superficie_texto = fuente.render(texto, True, color)
-#     ventana.blit(superficie_texto, (x, y))
+
 
 # # Menú de partes del cuerpo
 # def mostrar_menu_partes_cuerpo():
