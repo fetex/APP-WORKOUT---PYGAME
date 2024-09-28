@@ -34,7 +34,14 @@ fuente_texto = pygame.font.SysFont('Arial', 24)
 
 
 # Funcion para crear boton
-def draw_button(x, y, width, height, color, text, text_color):
+def draw_button(x, y, width, height, color, color_hover, text, text_color):
+    mouse_pos = pygame.mouse.get_pos()
+
+    # Efecto hover boton
+    if x <= mouse_pos[0] <= x + width and y <= mouse_pos[1] <= y + height:
+        color = color_hover
+    else: 
+        color = color
     pygame.draw.rect(window, color, (x, y, width, height))
     text_button = fuente_texto.render(text, True, text_color)
     window.blit(text_button, (x + (width - text_button.get_width()) // 2, y + (height - text_button.get_height()) // 2)) ## Centro el texto en el boton
@@ -53,8 +60,8 @@ def draw_grid():
 def show_menu():
     window.fill(WHITE)
     draw_grid()
-    draw_button(100, 200, 150, 50, GREEN, 'Pecho', BLACK)
-    draw_button(250, 300, 150, 50, BLACK, 'Salir', WHITE)
+    draw_button(100, 200, 150, 50, GREEN, GREEN_BLACK, 'Pecho', BLACK)
+    draw_button(250, 300, 150, 50, BLACK, GRAY, 'Salir', WHITE)
     pygame.display.update()
 
 
@@ -62,8 +69,8 @@ def show_menu():
 def show_chest():
     window.fill(WHITE)
     draw_grid()
-    draw_button(100, 200, 150, 50, GREEN, 'Press de banca', BLACK)
-    draw_button(250, 300, 150, 50, BLACK, 'Regresar', WHITE)
+    draw_button(100, 200, 150, 50, GREEN, GREEN_BLACK, 'Press de banca', BLACK)
+    draw_button(250, 300, 150, 50, BLACK, GRAY,  'Regresar', WHITE)
     pygame.display.update()
 
 
@@ -103,7 +110,7 @@ while running:
           if view == 'menu':
               if 100 <= mouse_pos[0] <= 250 and 200 <= mouse_pos[1] <= 250:
                   view = 'chest'
-              elif 250 <= mouse_pos[0] <= 250 and 300 <= mouse_pos[1] <= 350:
+              elif 250 <= mouse_pos[0] <= 400 and 300 <= mouse_pos[1] <= 350:
                   running = False
 
           elif view == 'chest':
