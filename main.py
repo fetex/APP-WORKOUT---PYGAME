@@ -13,6 +13,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 GREEN_BLACK = (0, 200, 0)
+RED = (255, 0, 0)
 
 #Size window 
 WIDTH = 800
@@ -41,26 +42,29 @@ while running:
     #Obtener posicion mouse
     mouse_pos = pygame.mouse.get_pos()
 
-    #Efecto hover boton
+    #Efecto hover boton 
     if 100 <= mouse_pos[0] <= 250 and 100 <= mouse_pos[1] <= 250:
         color_buttom = GREEN_BLACK
     else:
         color_buttom = GREEN
 
     #Dibujar botones
-    draw_button(100, 200, 150, 50, color_buttom, 'Pecho', BLACK)
+    draw_button(100, 200, 150, 50, color_buttom, 'Pecho', BLACK) #Boton pecho
+    draw_button(250, 300, 150, 50, BLACK, 'Salir', RED) #Boton salir
 
     #Obtener eventos
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        # Detectar click en boton
+        # Detectar click en boton rutina pecho
         if event.type == pygame.MOUSEBUTTONDOWN:
             if 100 <= mouse_pos[0] <= 250 and 200 <= mouse_pos[1] <= 250:
                 print('Click en boton pecho')
 
-    
+            if 250 <= mouse_pos[0] <= 400 and 300 <= mouse_pos[1] <= 350:
+                running = False
+        
     #Actualizar pantalla
     pygame.display.update()
 
