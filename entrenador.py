@@ -8,6 +8,10 @@ import cv2
 
 
 
+
+
+
+
 # Primero: librerias 
 # Segundo: Constantes, variables, 
 # Tercero: Funciones
